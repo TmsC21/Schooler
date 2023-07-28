@@ -1,10 +1,9 @@
-package com.myProject.school.model;
+package sk.myProject.school.model;
 
 
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Setter
@@ -16,10 +15,14 @@ public class GroupBean {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "group_code")
+    private String groupCode;
+
     @Column(name = "group_name")
     private String groupName;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groubBean")
-    private List<PersonBean> personBeanList;
-
+    public GroupBean(String groupName, String groupCode) {
+        this.groupCode = groupCode;
+        this.groupName = groupName;
+    }
 }

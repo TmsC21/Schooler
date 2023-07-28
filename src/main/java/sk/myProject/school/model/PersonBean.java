@@ -1,6 +1,6 @@
-package com.myProject.school.model;
+package sk.myProject.school.model;
 
-import com.myProject.school.request.PersonRequest;
+import sk.myProject.school.request.PersonRequest;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,15 +25,19 @@ public class PersonBean {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "username")
+    private String username;
+
     @ManyToOne
     @JoinColumn(name="group_id", nullable=false)
-    private GroupBean groubBean;
+    private GroupBean groupBean;
 
     public PersonBean(PersonRequest personRequest){
         this.name = personRequest.getName();
         this.surname = personRequest.getSurname();
         this.email = personRequest.getEmail();
         this.password = personRequest.getPassword();
+        this.username = personRequest.getUserName();
     }
 
 }

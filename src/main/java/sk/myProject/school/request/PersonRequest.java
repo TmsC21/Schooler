@@ -1,4 +1,4 @@
-package com.myProject.school.request;
+package sk.myProject.school.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,5 +12,6 @@ public class PersonRequest {
     private String surname;
     private String email;
     private String password;
-    private Long groupId;
+    private String groupName;
+    private String userName;
 }
