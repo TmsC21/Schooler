@@ -32,6 +32,10 @@ public class PersonBean {
     @JoinColumn(name="group_id", nullable=false)
     private GroupBean groupBean;
 
+    @ManyToOne
+    @JoinColumn(name="person_cis_id", nullable=false)
+    private PersonCisBean personCisBean;
+
     public PersonBean(PersonRequest personRequest){
         this.name = personRequest.getName();
         this.surname = personRequest.getSurname();

@@ -5,6 +5,7 @@ import sk.myProject.school.model.MyUtils;
 import sk.myProject.school.model.PersonBean;
 import sk.myProject.school.request.PersonRequest;
 import sk.myProject.school.service.GroupService;
+import sk.myProject.school.service.PersonCisService;
 import sk.myProject.school.service.PersonServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.query.Procedure;
@@ -21,6 +22,8 @@ public class PersonController {
     private PersonServiceImp personService;
     @Autowired
     private GroupService groupService;
+    @Autowired
+    private PersonCisService personCisService;
 
     protected final ObjectMapper json = new ObjectMapper();
 
@@ -32,6 +35,7 @@ public class PersonController {
             personRequest.setPassword(MyUtils.encryption(personRequest.getPassword()));
             PersonBean newPersonBean = new PersonBean(personRequest);
             newPersonBean.setGroupBean(groupService.getGroupByName(personRequest.getGroupName()));
+            newPersonBean.setPersonCisBean(personCisService.getPersonCis(personRequest.getPersonCis()));
             return new ResponseEntity<>(json.writeValueAsString(personService.createPerson(newPersonBean)), HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();

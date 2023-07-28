@@ -14,4 +14,5 @@ public class PersonRequest {
     private String password;
     private String groupName;
     private String userName;
+    private String personCis;
 }
