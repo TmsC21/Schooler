@@ -1,6 +1,7 @@
 package sk.myProject.school.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import sk.myProject.school.mappers.PersonMapper;
 import sk.myProject.school.model.MyUtils;
 import sk.myProject.school.model.PersonBean;
 import sk.myProject.school.request.PersonRequest;
@@ -24,30 +25,14 @@ public class PersonController {
     private GroupService groupService;
     @Autowired
     private PersonCisService personCisService;
-
     protected final ObjectMapper json = new ObjectMapper();
 
-    @PostMapping(value = "/create", produces = "application/json")
-    @Procedure(MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createPerson(@RequestBody PersonRequest personRequest) {
-        try {
-            personService.validateEmail(personRequest.getEmail());
-            personRequest.setPassword(MyUtils.encryption(personRequest.getPassword()));
-            PersonBean newPersonBean = new PersonBean(personRequest);
-            newPersonBean.setGroupBean(groupService.getGroupByName(personRequest.getGroupName()));
-            newPersonBean.setPersonCisBean(personCisService.getPersonCis(personRequest.getPersonCis()));
-            return new ResponseEntity<>(json.writeValueAsString(personService.createPerson(newPersonBean)), HttpStatus.CREATED);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
-        }
-    }
 
     @GetMapping(value = "/findById/{id}", produces = "application/json")
     @Procedure(MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> findById(@PathVariable Long id) {
         try {
-            return new ResponseEntity<>(json.writeValueAsString(personService.getPersonById(id)), HttpStatus.FOUND);
+            return new ResponseEntity<>(json.writeValueAsString(personService.getPersonDTOById(id)), HttpStatus.FOUND);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);

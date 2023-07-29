@@ -20,20 +20,20 @@ public class PersonBean {
     private String name;
     @Column(name = "surname")
     private String surname;
-    @Column(name = "email")
+    @Column(name = "email",unique = true)
     private String email;
     @Column(name = "password")
     private String password;
 
-    @Column(name = "username")
+    @Column(name = "username",unique = true)
     private String username;
 
     @ManyToOne
-    @JoinColumn(name="group_id", nullable=false)
+    @JoinColumn(name="group_id")
     private GroupBean groupBean;
 
     @ManyToOne
-    @JoinColumn(name="person_cis_id", nullable=false)
+    @JoinColumn(name="person_cis_id")
     private PersonCisBean personCisBean;
 
     public PersonBean(PersonRequest personRequest){

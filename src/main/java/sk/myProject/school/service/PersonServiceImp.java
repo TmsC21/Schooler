@@ -18,20 +18,23 @@ public class PersonServiceImp implements PersonService{
     @Autowired
     private PersonRepository personRepository;
 
-
-
     @Override
     public PersonDTO createPerson(PersonBean personBean) {
         return PersonMapper.INSTANCE.personToPersonDTO(personRepository.save(personBean));
     }
 
     @Override
-    public PersonDTO getPersonById(Long id) {
+    public PersonDTO getPersonDTOById(Long id) {
         PersonBean personBean = personRepository.findById(id).orElse(null);
         if(personBean == null){
             return null;
         }
         return PersonMapper.INSTANCE.personToPersonDTO(personBean);
+    }
+
+    @Override
+    public PersonBean getPersonById(Long id) {
+        return personRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -52,10 +55,18 @@ public class PersonServiceImp implements PersonService{
         return personBeanList.stream().map(PersonMapper.INSTANCE::personToPersonDTO).collect(Collectors.toList());
     }
 
-    public void validateEmail(String email) throws Exception{
-        String regex = "^[a-zA-Z0-9_!#$%&amp;'*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&amp;'*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
-        if(!Pattern.compile(regex).matcher(email).matches()){
-            throw new Exception("Email is not valid!");
-        }
+    @Override
+    public PersonBean getPersonByUserName(String userName) {
+        return personRepository.findPersonBeanByUsername(userName);
+    }
+
+    @Override
+    public PersonBean getPersonByEmail(String email) {
+        return personRepository.findPersonBeanByEmail(email);
+    }
+
+    @Override
+    public PersonBean savePerson(PersonBean personBean) {
+        return personRepository.save(personBean);
     }
 }

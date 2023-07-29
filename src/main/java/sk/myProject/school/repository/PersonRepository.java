@@ -11,4 +11,6 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<PersonBean,Long> {
     List<PersonBean> findAllByGroupBean_GroupCode(String groupCode);
     List<PersonBean> findAllByGroupBean_GroupName(String groupName);
+    PersonBean findPersonBeanByUsername(String userName);
+    PersonBean findPersonBeanByEmail(String email);
 }
