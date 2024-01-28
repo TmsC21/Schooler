@@ -43,7 +43,7 @@ public class GroupController {
     @Procedure(MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> findAll() {
         try {
-            return new ResponseEntity<>(json.writeValueAsString(groupService.getAllGroupDTO()), HttpStatus.FOUND);
+            return new ResponseEntity<>(json.writeValueAsString(groupService.getAllGroupDTO()), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);

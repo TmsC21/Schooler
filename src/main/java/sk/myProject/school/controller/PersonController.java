@@ -32,7 +32,7 @@ public class PersonController {
     @Procedure(MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> findById(@PathVariable Long id) {
         try {
-            return new ResponseEntity<>(json.writeValueAsString(personService.getPersonDTOById(id)), HttpStatus.FOUND);
+            return new ResponseEntity<>(json.writeValueAsString(personService.getPersonDTOById(id)), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -43,7 +43,7 @@ public class PersonController {
     @Procedure(MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> findAll() {
         try {
-            return new ResponseEntity<>(json.writeValueAsString(personService.getPersonsList()), HttpStatus.FOUND);
+            return new ResponseEntity<>(json.writeValueAsString(personService.getPersonsList()), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -54,7 +54,18 @@ public class PersonController {
     @Procedure(MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> findAllBytGroupCode(@PathVariable String groupCode) {
         try {
-            return new ResponseEntity<>(json.writeValueAsString(personService.getPersonsListByGroupCode(groupCode)), HttpStatus.FOUND);
+            return new ResponseEntity<>(json.writeValueAsString(personService.getPersonsListByGroupCode(groupCode)), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping(value = "/findByUserName/{userName}", produces = "application/json")
+    @Procedure(MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> findByUserName(@PathVariable String userName) {
+        try {
+            return new ResponseEntity<>(json.writeValueAsString(personService.getPersonByUserName(userName)), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -65,7 +76,7 @@ public class PersonController {
     @Procedure(MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> findAllBytGroupName(@PathVariable String groupName) {
         try {
-            return new ResponseEntity<>(json.writeValueAsString(personService.getPersonsListByGroupName(groupName)), HttpStatus.FOUND);
+            return new ResponseEntity<>(json.writeValueAsString(personService.getPersonsListByGroupName(groupName)), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);

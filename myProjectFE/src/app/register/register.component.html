@@ -1,0 +1,43 @@
+<mat-card class="example-card center-form">
+  <mat-card-header>
+      <h1>
+        User registration
+      </h1>
+  </mat-card-header>
+  <mat-card-content>
+    <form class="example-form center-form" [formGroup]="registerForm" (ngSubmit)="proceedRegistration()">
+      <mat-form-field class="example-full-width">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Surname</mat-label>
+        <input matInput formControlName="surname">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>E-mail</mat-label>
+        <input matInput formControlName="email">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>User name</mat-label>
+        <input matInput formControlName="userName">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput formControlName="password">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Group name</mat-label>
+        <mat-select formControlName="groupName">
+          <mat-option *ngFor="let group of groups" [value]="group.groupName">{{ group.groupName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-raised-button color="primary">Register</button>
+        <a routerLink="/login" mat-raised-button color="accent">Back</a>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+
