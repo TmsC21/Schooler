@@ -10,6 +10,8 @@ public interface PersonService {
 
     PersonDTO getPersonDTOById(Long id);
     PersonBean getPersonById(Long id);
+    PersonBean getPersonByUUid(String uuid);
+    PersonDTO getPersonDTOByUUid(String uuid);
 
     List<PersonDTO> getPersonsList();
 

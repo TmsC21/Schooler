@@ -13,4 +13,5 @@ public interface PersonRepository extends JpaRepository<PersonBean,Long> {
     List<PersonBean> findAllByGroupBean_GroupName(String groupName);
     PersonBean findPersonBeanByUsername(String userName);
     PersonBean findPersonBeanByEmail(String email);
+    PersonBean findPersonBeanByUuid(String uuid);
 }

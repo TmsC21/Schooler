@@ -11,8 +11,9 @@ import {ToastrModule} from "ngx-toastr";
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { UserlistingComponent } from './userlisting/userlisting.component';
 import { UpdatepopupComponent } from './updatepopup/updatepopup.component';
+import {MatExpansionModule} from "@angular/material/expansion";
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -20,19 +21,20 @@ import { UpdatepopupComponent } from './updatepopup/updatepopup.component';
     RegisterComponent,
     LoginComponent,
     HomeComponent,
-    UserlistingComponent,
     UpdatepopupComponent,
+    UserListComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    ToastrModule.forRoot()
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        ToastrModule.forRoot(),
+        MatExpansionModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

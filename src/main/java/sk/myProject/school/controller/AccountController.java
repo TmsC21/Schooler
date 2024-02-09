@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import sk.myProject.school.mappers.PersonMapper;
 import sk.myProject.school.model.MyUtils;
 import sk.myProject.school.model.PersonBean;
+import sk.myProject.school.request.LoginForm;
 import sk.myProject.school.request.PersonRequest;
 import sk.myProject.school.service.GroupService;
 import sk.myProject.school.service.PersonCisService;
@@ -51,10 +52,10 @@ public class AccountController {
 
     @PostMapping(value = "/login", produces = "application/json")
     @Procedure(MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> login(@RequestParam("username") String username, @RequestParam("password") String password) {
+    public ResponseEntity<String> login(@RequestBody LoginForm loginForm) {
         try {
-            PersonBean personBean = personService.getPersonByUserName(username);
-            if (personBean == null || !MyUtils.decryption(personBean.getPassword()).equals(password)) {
+            PersonBean personBean = personService.getPersonByUserName(loginForm.getUsername());
+            if (personBean == null || !MyUtils.decryption(personBean.getPassword()).equals(loginForm.getPassword())) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
             return new ResponseEntity<>(json.writeValueAsString(PersonMapper.INSTANCE.personToPersonDTO(personBean)), HttpStatus.OK);

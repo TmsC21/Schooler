@@ -4,6 +4,7 @@ import sk.myProject.school.request.PersonRequest;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Setter
@@ -15,6 +16,9 @@ public class PersonBean {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "uuid")
+    private String uuid;
 
     @Column(name = "name")
     private String name;
@@ -37,6 +41,7 @@ public class PersonBean {
     private PersonCisBean personCisBean;
 
     public PersonBean(PersonRequest personRequest){
+        this.uuid = UUID.randomUUID().toString();
         this.name = personRequest.getName();
         this.surname = personRequest.getSurname();
         this.email = personRequest.getEmail();

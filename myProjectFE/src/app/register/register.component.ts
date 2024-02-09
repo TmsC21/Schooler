@@ -40,6 +40,8 @@ export class RegisterComponent {
     );
   }
 
+
+
   proceedRegistration() {
     if (this.registerForm.valid) {
       this.authService.register(this.registerForm.value).subscribe(res =>{

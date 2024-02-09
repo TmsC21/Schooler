@@ -38,6 +38,16 @@ public class PersonServiceImp implements PersonService{
     }
 
     @Override
+    public PersonBean getPersonByUUid(String uuid) {
+        return personRepository.findPersonBeanByUuid(uuid);
+    }
+
+    @Override
+    public PersonDTO getPersonDTOByUUid(String uuid) {
+        return PersonMapper.INSTANCE.personToPersonDTO(personRepository.findPersonBeanByUuid(uuid));
+    }
+
+    @Override
     public List<PersonDTO> getPersonsList() {
         List<PersonBean> personBeanList = personRepository.findAll();
         return personBeanList.stream().map(PersonMapper.INSTANCE::personToPersonDTO).collect(Collectors.toList());
