@@ -8,13 +8,22 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sk.myProject.school.mappers.PersonMapper;
-import sk.myProject.school.model.MyUtils;
-import sk.myProject.school.model.PersonBean;
+import sk.myProject.school.model.*;
+import sk.myProject.school.repository.LogCisRepository;
+import sk.myProject.school.repository.LogRepository;
 import sk.myProject.school.request.LoginForm;
 import sk.myProject.school.request.PersonRequest;
 import sk.myProject.school.service.GroupService;
 import sk.myProject.school.service.PersonCisService;
 import sk.myProject.school.service.PersonServiceImp;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/acc")
@@ -26,6 +35,10 @@ public class AccountController {
     private GroupService groupService;
     @Autowired
     private PersonCisService personCisService;
+    @Autowired
+    private LogRepository logRepository;
+    @Autowired
+    private LogCisRepository logCisRepository;
     protected final ObjectMapper json = new ObjectMapper();
 
     @PostMapping(value = "/register", produces = "application/json")
@@ -58,6 +71,7 @@ public class AccountController {
             if (personBean == null || !MyUtils.decryption(personBean.getPassword()).equals(loginForm.getPassword())) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
+            new LogBean(personBean, LogTypeCis.LOG_IN, new Date(), logCisRepository).log(logRepository);
             return new ResponseEntity<>(json.writeValueAsString(PersonMapper.INSTANCE.personToPersonDTO(personBean)), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,6 +115,43 @@ public class AccountController {
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+    @PostMapping(value = "/logActivity", produces = "application/json")
+    @Procedure(MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> logActivity(@RequestBody String uuid) {
+        try {
+            new LogBean(personService.getPersonByUUid(uuid), LogTypeCis.LOGGED, new Date(), logCisRepository).log(logRepository);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+    @PostMapping(value = "/getActivities", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Procedure(MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, Boolean>> getActivities(@RequestBody List<String> uuids) {
+        try {
+            Map<String, Boolean> map = new HashMap<>();
+            LocalDateTime currentTime = LocalDateTime.now();
+
+            for (String uuid : uuids) {
+                PersonBean personBean = personService.getPersonByUUid(uuid);
+                List<LogBean> logs = logRepository.findAllByPersonBeanOrderByCreateDateDesc(personBean);
+
+                if (!logs.isEmpty()) {
+                    LogBean logBean = logs.get(0);
+                    LocalDateTime createDate = logBean.getCreateDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+                    boolean isActive = Duration.between(createDate, currentTime).toMinutes() <= 1;
+                    map.put(uuid, isActive);
+                } else {
+                    map.put(uuid, false); // No logs found, considered as inactive
+                }
+            }
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

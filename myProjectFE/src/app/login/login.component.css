@@ -1,16 +1,8 @@
-.example-card {
-  width: 400px;
-  margin: auto;
-  font-size: 20px;
-}
-.center-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 #loginBtn{
   margin-right: 10px;
+  background-color: rgba(0, 69, 158, 1);
+}
+#registerBtn{
+  background-color: #8DB3DC;
 }
 

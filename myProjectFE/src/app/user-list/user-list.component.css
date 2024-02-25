@@ -1,0 +1,41 @@
+/* Styling for mat-expansion-panel */
+.mat-expansion-panel {
+  margin-bottom: 20px; /* Add some space between expansion panels */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+}
+
+/* Styling for mat-expansion-panel-header */
+.mat-expansion-panel-header {
+  background-color: white; /* Background color */
+  border-radius: 10px 10px 0 0; /* Rounded corners, except bottom */
+}
+
+/* Styling for mat-expansion-panel-content */
+.mat-expansion-panel-content {
+  padding: 20px; /* Add some padding */
+}
+
+/* Styling for mat-table */
+.mat-table {
+  width: 100%; /* Ensure the table takes up full width */
+  border-radius: 10px; /* Rounded corners */
+  overflow: hidden; /* Hide overflowing content */
+}
+
+/* Styling for table header cells */
+.mat-header-cell {
+  font-weight: bold; /* Bold font for headers */
+  color: #333; /* Text color */
+  border-bottom: 2px solid #8DB3DC; /* Border bottom */
+}
+
+/* Styling for table cells */
+.mat-cell {
+  border-bottom: 1px solid #8DB3DC; /* Border bottom */
+}
+
+mat-slide-toggle{
+margin-bottom: 10px;
+}
+

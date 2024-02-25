@@ -1,8 +1,18 @@
 <ng-container *ngIf="role === 'ADMIN'">
+  <mat-slide-toggle [(ngModel)]="isChecked" (change)="onSlideToggleChange($event)">Show activity</mat-slide-toggle>
   <mat-expansion-panel hideToggle *ngFor="let group of myUserList">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{ group.LECTURER[0]?.name }} {{ group.LECTURER[0]?.surname }}
+        <span style="width: 120px">
+          {{ group.LECTURER[0]?.name }} {{ group.LECTURER[0]?.surname }}
+        </span>
+        <div *ngIf="isChecked" [id]="group.LECTURER[0]?.uuid" #dynamicDivs>
+          <img
+            width="20"
+            alt="Logged Logo"
+            src="assets/images/notLogged.svg"
+          />
+        </div>
       </mat-panel-title>
       <mat-panel-description>
         {{ group.LECTURER[0]?.group.groupName }}

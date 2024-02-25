@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { UpdatepopupComponent } from './updatepopup/updatepopup.component';
 import {MatExpansionModule} from "@angular/material/expansion";
 import { UserListComponent } from './user-list/user-list.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { UserListComponent } from './user-list/user-list.component';
         ReactiveFormsModule,
         HttpClientModule,
         ToastrModule.forRoot(),
-        MatExpansionModule
+        MatExpansionModule,
+        MatSlideToggleModule
     ],
   providers: [],
   bootstrap: [AppComponent]

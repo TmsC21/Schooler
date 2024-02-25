@@ -1,18 +1,4 @@
 <mat-card class="example-card center-form">
-  <mat-card-header>
-    <h1>
-      Hello {{this.name}} {{this.surname}}
-    </h1>
-  </mat-card-header>
-  <mat-card-content>
-    <form class="example-form center-form"  (ngSubmit)="proceedLogout()">
-      <div>
-        <button mat-raised-button color="primary">Logout</button>
-      </div>
-    </form>
-  </mat-card-content>
-</mat-card>
-<mat-card class="example-card center-form">
   <app-user-list  [myUserList]="this.userLists" [role]="role"></app-user-list>
 </mat-card>
 

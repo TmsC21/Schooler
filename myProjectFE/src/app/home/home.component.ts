@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, Input, Output} from '@angular/core';
 import {FormBuilder} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {AuthService} from "../service/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Observable, catchError, throwError, switchMap, of} from "rxjs";
+import {Observable, catchError, throwError, switchMap, of, Subscription} from "rxjs";
 import {PersonService} from "../service/person.service";
+import {SharedDataService} from "../service/shared-data.service";
 
 @Component({
   selector: 'app-home',
@@ -20,12 +21,7 @@ export class HomeComponent {
   groupName: any;
   userLists: any[] = [];
 
-  constructor(private builder: FormBuilder, private toastr: ToastrService, private authService: AuthService, private router: Router, private activateRouter: ActivatedRoute, private personService: PersonService) {
-  }
-
-  proceedLogout() {
-    sessionStorage.clear()
-    this.router.navigate(['login']);
+  constructor(private builder: FormBuilder, private toastr: ToastrService, private authService: AuthService, private router: Router, private activateRouter: ActivatedRoute, private personService: PersonService,private sharedDataService: SharedDataService) {
   }
 
   ngOnInit() {
@@ -74,6 +70,8 @@ export class HomeComponent {
           // Continue with any additional logic here
         });
       }
+      this.sharedDataService.setName(this.name);
+      this.sharedDataService.setSurname(this.surname);
     }
 
     this.activateRouter.queryParams.subscribe(params => {
@@ -94,6 +92,9 @@ export class HomeComponent {
             this.role = res.role.personCis;
             this.groupName = res.group?.groupName;
             prepareList(this.role);
+            if(this.role !== 'ADMIN'){
+              this.personService.startPolling(this.uuid,false)
+            }
           });
       }
     });
