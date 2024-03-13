@@ -1,5 +1,17 @@
-<mat-card class="example-card center-form">
-  <app-user-list  [myUserList]="this.userLists" [role]="role"></app-user-list>
-</mat-card>
+<mat-tab-group *ngIf="role !== 'STUDENT'">
+  <mat-tab label="Class view">
+    <mat-card class="example-card center-form ">
+      <app-user-list [myUserList]="this.userLists" [role]="role"></app-user-list>
+    </mat-card>
+  </mat-tab>
+  <mat-tab label="Azure">
+    <app-robot-motion [uuid]="uuid" [azureConnString]="azureConnString"
+                      [azureDeviceId]="azureDeviceId"></app-robot-motion>
+  </mat-tab>
+</mat-tab-group>
+
+<app-robot-motion *ngIf="role === 'STUDENT'" [uuid]="uuid" [azureConnString]="azureConnString"
+                  [azureDeviceId]="azureDeviceId"></app-robot-motion>
+
 
 

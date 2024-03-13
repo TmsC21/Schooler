@@ -32,6 +32,12 @@ public class PersonBean {
     @Column(name = "username",unique = true)
     private String username;
 
+    @Column(name = "azure")
+    private String azureConnString;
+
+    @Column(name = "azure_device")
+    private String azureDeviceId;
+
     @ManyToOne
     @JoinColumn(name="group_id")
     private GroupBean groupBean;

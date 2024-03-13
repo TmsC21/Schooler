@@ -17,6 +17,8 @@ export class HomeComponent {
   name: any;
   surname: any;
   uuid: any;
+  azureConnString: any;
+  azureDeviceId: any;
   role: any;
   groupName: any;
   userLists: any[] = [];
@@ -91,6 +93,8 @@ export class HomeComponent {
             this.surname = res.surname;
             this.role = res.role.personCis;
             this.groupName = res.group?.groupName;
+            this.azureConnString = res.azureConnString;
+            this.azureDeviceId = res.azureDeviceId;
             prepareList(this.role);
             if(this.role !== 'ADMIN'){
               this.personService.startPolling(this.uuid,false)

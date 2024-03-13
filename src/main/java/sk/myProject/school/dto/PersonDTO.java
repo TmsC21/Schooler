@@ -22,6 +22,9 @@ public class PersonDTO {
 
     private String email;
 
+    private String azureConnString;
+    private String azureDeviceId;
+
     @Setter
     @Getter
     private GroupDTO group;
@@ -33,6 +36,8 @@ public class PersonDTO {
         this.email = personBean.getEmail();
         this.group = GroupMapper.INSTANCE.groupToGroupDTO(personBean.getGroupBean());
         this.role = personBean.getPersonCisBean();
+        this.azureConnString = personBean.getAzureConnString();
+        this.azureDeviceId = personBean.getAzureDeviceId();
     }
 
 }

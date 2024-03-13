@@ -1,0 +1,23 @@
+.input-grid {
+  display: grid;
+  grid-template-columns: 5fr; /* Adjust the ratio as needed */
+  gap: 10px; /* Adjust the gap between elements as needed */
+}
+
+.example-form-field {
+  width: 100%;
+}
+
+.mat-form-field {
+  position: relative;
+}
+
+.mat-form-field-underline {
+  display: none; /* Hides the underline */
+}
+
+button[matSuffix] {
+  position: absolute;
+  right: 0;
+  top: calc(50% - 12px); /* Adjust vertical alignment as needed */
+}

@@ -15,6 +15,10 @@ import { UpdatepopupComponent } from './updatepopup/updatepopup.component';
 import {MatExpansionModule} from "@angular/material/expansion";
 import { UserListComponent } from './user-list/user-list.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { RobotMotionComponent } from './robot-motion/robot-motion.component';
+import {MatIconModule} from "@angular/material/icon";
+import {MatListModule} from "@angular/material/list";
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -24,19 +28,23 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     HomeComponent,
     UpdatepopupComponent,
     UserListComponent,
+    RobotMotionComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        MaterialModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        ToastrModule.forRoot(),
-        MatExpansionModule,
-        MatSlideToggleModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ToastrModule.forRoot(),
+    MatExpansionModule,
+    MatSlideToggleModule,
+    MatIconModule,
+    MatListModule,
+    MatTabsModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

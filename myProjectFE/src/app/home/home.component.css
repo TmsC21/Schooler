@@ -1,6 +1,6 @@
 .example-card {
-  width: 400px;
-  margin: auto;
+  width: 650px;
+  margin: 15px auto;
   font-size: 20px;
 }
 .center-form {
@@ -13,3 +13,17 @@
 app-user-list{
   margin: 30px;
 }
+/* Override background color of mat-tab-group */
+mat-tab-group {
+  background-color: #f0f0f0; /* Change to your desired background color */
+}
+
+/* Override background color of mat-tab-label */
+mat-tab-group mat-tab-label {
+  background-color: #c0c0c0; /* Change to your desired background color */
+}
+
+app-robot-motion {
+  width: 100%; /* Adjust width as needed */
+}
+
